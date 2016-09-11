@@ -2,8 +2,7 @@ const getAnimalsSnapshot = require('../src/get-animals-snapshot');
 
 describe('getSnapshot', ()=> {
 
-    it('getSnapshot', ()=> {
-        const history = `e4e87cb2-8e9a-4749-abb6-26c59344dfee
+    const historyData = `e4e87cb2-8e9a-4749-abb6-26c59344dfee
 2016/09/02 22:30:46
 cat1 10 9
 
@@ -15,7 +14,9 @@ cat2 2 3
 dcfa0c7a-5855-4ed2-bc8c-4accae8bd155
 2016/09/02 22:31:02
 cat1 12 8 3 4`;
-        const historyArr = getAnimalsSnapshot.getHistoryDataArr(history);
+
+    it('getSnapshot', ()=> {
+        const historyArr = getAnimalsSnapshot.getHistoryDataArr(historyData);
         const expectGetAnimalsSnapshot = [
             {
                 id: 'e4e87cb2-8e9a-4749-abb6-26c59344dfee',
@@ -37,7 +38,7 @@ cat1 12 8 3 4`;
         expect(historyArr).toEqual(expectGetAnimalsSnapshot);
     });
 
-    it('judeFormat', ()=> {
+    it('judeFormatId of wrong format', ()=> {
         spyOn(console, 'log');
         const id = 'e4e87cb2-8e9a-4749- abb6-26c59344dfee';
         const expectResult = 'Invalid format.';
@@ -45,14 +46,14 @@ cat1 12 8 3 4`;
         expect(console.log).toHaveBeenCalledWith(expectResult);
     });
 
-    it('judeFormat', ()=> {
+    it('judeFormatId of correct format', ()=> {
         const id = 'e4e87cb2-8e9a-4749-abb6-26c59344dfee';
         const expectResult = true;
-        const formatId =  getAnimalsSnapshot.judeFormatId(id);
+        const formatId = getAnimalsSnapshot.judeFormatId(id);
         expect(formatId).toEqual(expectResult);
     });
 
-    it('judeFormat', ()=> {
+    it('judeFormatDate of wrong format', ()=> {
         spyOn(console, 'log');
         const date = '2016/09-02 22:30:46';
         const expectResult = 'Invalid format.';
@@ -60,12 +61,28 @@ cat1 12 8 3 4`;
         expect(console.log).toHaveBeenCalledWith(expectResult);
     });
 
-    it('judeFormat', ()=> {
+    it('judeFormatDate of correct format', ()=> {
         const date = '2016/09/02 22:30:46';
         const expectResult = true;
-        const formatDate =  getAnimalsSnapshot.judeFormatDate(date);
+        const formatDate = getAnimalsSnapshot.judeFormatDate(date);
         expect(formatDate).toEqual(expectResult);
     });
 
+
+    it('judeFormatAnimals of wrong format', ()=> {
+        spyOn(console, 'log');
+        const historyDataArr = `e4e87cb2-8e9a-4749-abb6-26c59344dfee
+2016/09/02 22:30:46
+cat1 9` ;
+        const expectResult = 'Invalid format.';
+        getAnimalsSnapshot.judeFormatAnimals(historyDataArr);
+        expect(console.log).toHaveBeenCalledWith(expectResult);
+    });
+
+    it('judeFormatAnimals of correct format', ()=> {
+        const expectResult = true;
+        const formatAnimals = getAnimalsSnapshot.judeFormatAnimals(historyData);
+        expect(formatAnimals).toEqual(expectResult);
+    });
 
 });

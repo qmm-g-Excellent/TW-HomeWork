@@ -44,3 +44,22 @@ exports.judeFormatDate = (date) => {
     return true;
 };
 
+exports.judeFormatAnimals = (historyDataArr) => {
+    const historyDataSplited = historyDataArr.split("\n");
+    const animals = historyDataSplited.splice(2);
+    const errFormat = animals.map(animal => {
+        const everyAnimal = animal.split(' ');
+        if (everyAnimal.length < 3 || everyAnimal.length > 5) {
+            return animal;
+        }
+    });
+    if (errFormat[0]) {
+        console.log('Invalid format.');
+        return false;
+    }
+    return true;
+};
+
+
+
+
