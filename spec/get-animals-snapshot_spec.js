@@ -84,7 +84,7 @@ cat1 9`;
 2016/09/02 22:30:46
 cat1 10 9 2 -1`;
         const expectResult = true;
-        const formatData =  getAnimalsSnapshot.judeFormatAnimals(historyDataArr);
+        const formatData = getAnimalsSnapshot.judeFormatAnimals(historyDataArr);
         expect(formatData).toEqual(expectResult);
     });
 
@@ -110,11 +110,22 @@ dcfa0c7a-5855-4ed2-bc8c-4accae8bd155
 cat1 11 8 3 4`;
 
         const errHistoryDataArr = getAnimalsSnapshot.getHistoryDataArr(errHistoryData);
-        spyOn(console,'log');
+        spyOn(console, 'log');
 
         getAnimalsSnapshot.judeHistoryData(errHistoryDataArr);
         const expectResult = 'Conflict found at dcfa0c7a-5855-4ed2-bc8c-4accae8bd155';
         expect(console.log).toHaveBeenCalledWith(expectResult);
     });
+
+    it('getAreaAnimals', ()=> {
+        spyOn(console,'log');
+        const id = 'dcfa0c7a-5855-4ed2-bc8c-4accae8bd155';
+        const historyDataArr = getAnimalsSnapshot.getHistoryDataArr(historyData);
+        const AreaAnimals = getAnimalsSnapshot.getAreaAnimals(historyDataArr, id);
+        const expectAreaAnimals = `cat1 15 12
+cat2 2 3`;
+        expect(console.log).toHaveBeenCalledWith(expectAreaAnimals);
+    });
+
 
 });
