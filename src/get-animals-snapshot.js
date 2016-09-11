@@ -200,8 +200,7 @@ let animalsText = (areaAnimals) => {
     let animalsSort = getSortAnimals(areaAnimals);
     return animalsSort.map((item)=> {
         return `${item.ani_id} ${item.currentX} ${item.currentY}`
-    })
-        .join('\n');
+    }).join('\n');
 };
 
 module.exports = {
