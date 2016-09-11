@@ -118,14 +118,21 @@ cat1 11 8 3 4`;
     });
 
     it('getAreaAnimals', ()=> {
-        spyOn(console,'log');
         const id = 'dcfa0c7a-5855-4ed2-bc8c-4accae8bd155';
         const historyDataArr = getAnimalsSnapshot.getHistoryDataArr(historyData);
         const AreaAnimals = getAnimalsSnapshot.getAreaAnimals(historyDataArr, id);
         const expectAreaAnimals = `cat1 15 12
 cat2 2 3`;
-        expect(console.log).toHaveBeenCalledWith(expectAreaAnimals);
+        expect(AreaAnimals).toEqual(expectAreaAnimals);
     });
 
+    it('getSnapshot', () => {
+        spyOn(console, 'log');
+        const id = 'dcfa0c7a-5855-4ed2-bc8c-4accae8bd155';
+        getAnimalsSnapshot.getSnapshot(historyData, id);
+        const expectSnapshot = `cat1 15 12
+cat2 2 3`;
+        expect(console.log).toHaveBeenCalledWith(expectSnapshot);
+    });
 
 });

@@ -1,5 +1,26 @@
-exports.getHistoryDataArr = (history)=> {
+let getSnapshot = (historyData, id) => {
+    const historyDataArr = getHistoryDataArr(historyData);
+    const errHistoryData = judeHistoryAnimalsData(historyDataArr);
+    if (errHistoryData) {
+        return;
+    }
+    const animalsText = getAreaAnimals(historyDataArr, id);
+    console.log(animalsText);
+};
 
+let judeHistoryAnimalsData = (historyDataArr) => {
+    return historyDataArr.map(element => {
+        const formatId = judeFormatId(element.ani_id);
+        const formatDate = judeFormatDate(element.date);
+        const errFormatAni = judeFormatAnimals(historyDataArr);
+        const errAnimalsData = judeFormatAnimals(historyDataArr);
+        if (!formatId || formatDate || errFormatAni || errAnimalsData) {
+            return 'Error';
+        }
+    });
+};
+
+let getHistoryDataArr = (history)=> {
     const historySplited = history.split("\n\n");
     return historyArr = historySplited.map(element => {
         const elementSplited = element.split("\n");
@@ -26,7 +47,7 @@ let getAnimalsArr = (elementSplited)=> {
     });
 };
 
-exports.judeFormatId = (id) => {
+let judeFormatId = (id) => {
     const idSplited = id.split(' ');
     if (idSplited[1] || id === '') {
         console.log('Invalid format.');
@@ -35,7 +56,7 @@ exports.judeFormatId = (id) => {
     return true;
 };
 
-exports.judeFormatDate = (date) => {
+let judeFormatDate = (date) => {
     var reg = /^(\d{4})(-|\/)(\d{2})\2(\d{2}) (\d{2}):(\d{2}):(\d{2})$/;
     if (!reg.test(date)) {
         console.log('Invalid format.');
@@ -44,7 +65,7 @@ exports.judeFormatDate = (date) => {
     return true;
 };
 
-exports.judeFormatAnimals = (historyDataArr) => {
+let judeFormatAnimals = (historyDataArr) => {
     const historyDataSplited = historyDataArr.split("\n");
     const animals = historyDataSplited.splice(2);
     const errFormat = animals.map(animal => {
@@ -60,7 +81,7 @@ exports.judeFormatAnimals = (historyDataArr) => {
     return true;
 };
 
-exports.judeHistoryData = (historyData) => {
+let judeHistoryData = (historyData) => {
     const animals = mergeAnimals(historyData);
     const errAnimals = animals.map(animal => {
         const errAnimal = getErrAnimal(animal, animals);
@@ -113,12 +134,8 @@ let getErrAnimal = (animal, animals) => {
     return errData.find(item => item);
 };
 
-// let isCorrectAniData = () => {
 
-
-// }
-
-exports.getAreaAnimals = (historyData, id) => {
+let getAreaAnimals = (historyData, id) => {
     const spliceIdElement = historyData.find(element => element.id === id);
     historyData = historyData.splice(0, historyData.indexOf(spliceIdElement) + 1);
     const animals = mergeAnimals(historyData);
@@ -132,7 +149,7 @@ exports.getAreaAnimals = (historyData, id) => {
             areaAnimals.push(oneKindAnimal);
         }
     });
-    console.log(animalsText(areaAnimals))
+    return animalsText(areaAnimals);
 };
 
 let getOneKindAnimal = (animal, animals) => {
@@ -185,4 +202,14 @@ let animalsText = (areaAnimals) => {
         return `${item.ani_id} ${item.currentX} ${item.currentY}`
     })
         .join('\n');
+};
+
+module.exports = {
+    getHistoryDataArr,
+    judeFormatId,
+    judeFormatDate,
+    judeFormatAnimals,
+    judeHistoryData,
+    getAreaAnimals,
+    getSnapshot
 };
