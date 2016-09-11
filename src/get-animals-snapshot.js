@@ -60,6 +60,52 @@ exports.judeFormatAnimals = (historyDataArr) => {
     return true;
 };
 
+exports.judeHistoryData = (historyData) => {
+    const animalsArr = historyData.map(element => {
+        return element.animals
+    });
+    let animals = [];
+    animalsArr.map(animalEveryMoment => {
+        animals = animals.concat(animalEveryMoment);
+    });
+    const errAnimals = animals.map(animal => {
+        const errAnimal = getErrAnimal(animal, animals);
+        if (errAnimal) {
+            return errAnimal;
+        }
+    });
+    if (errAnimals[0]) {
+        console.log('Conflict found at dcfa0c7a-5855-4ed2-bc8c-4accae8bd155');
+        return false;
+    }
+    return true;
+};
 
+let getErrAnimal = (animal, animals) => {
+    const currentAnimal = animals.find(element => animal === element);
+    animals = animals.splice(animals.indexOf(currentAnimal) + 1);
+    const errData = animals.map(element => {
+        if (element.ani_id === animal.ani_id && element.moveX) {
+            if (animal.currentX != element.currentX && animal.moveX) {
+                const item = {};
+                item.currentX = animal.currentX + animal.moveX;
+                item.currentY = animal.currentY + animal.moveY;
+                const x = item.currentX === element.currentX;
+                const y = item.currentY === element.currentY;
+                if (!(x && y)) {
+                    return element;
+                }
+            } else {
+                const x = animal.currentX === element.currentX;
+                const y = animal.currentY === element.currentY;
+                if (!(x && y)) {
+                    return element;
+                }
+            }
+            animal = element;
+        }
+    });
+    return errData.find(item => item);
+};
 
 
