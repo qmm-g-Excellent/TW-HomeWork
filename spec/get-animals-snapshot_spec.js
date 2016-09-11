@@ -41,7 +41,7 @@ cat1 12 8 3 4`;
        spyOn(console,'log');
         const id = 'e4e87cb2-8e9a-4749- abb6-26c59344dfee';
         const expectResult = 'Invalid format.';
-        getAnimalsSnapshot.judeFormat(id);
+        getAnimalsSnapshot.judeFormatId(id);
         expect(console.log).toHaveBeenCalledWith(expectResult);
     });
 });

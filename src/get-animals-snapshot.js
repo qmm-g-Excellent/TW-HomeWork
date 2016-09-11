@@ -26,9 +26,9 @@ let getAnimalsArr = (elementSplited)=> {
     });
 };
 
-exports.judeFormat = (id) =>{
+exports.judeFormatId = (id) =>{
   const idSplited = id.split(' ');
-    if(idSplited[1]){
+    if(id && idSplited[1]){
         console.log('Invalid format.');
         return false;
     }
