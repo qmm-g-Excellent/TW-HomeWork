@@ -37,11 +37,35 @@ cat1 12 8 3 4`;
         expect(historyArr).toEqual(expectGetAnimalsSnapshot);
     });
 
-    it('judeFormat',()=>{
-       spyOn(console,'log');
+    it('judeFormat', ()=> {
+        spyOn(console, 'log');
         const id = 'e4e87cb2-8e9a-4749- abb6-26c59344dfee';
         const expectResult = 'Invalid format.';
         getAnimalsSnapshot.judeFormatId(id);
         expect(console.log).toHaveBeenCalledWith(expectResult);
     });
+
+    it('judeFormat', ()=> {
+        const id = 'e4e87cb2-8e9a-4749-abb6-26c59344dfee';
+        const expectResult = true;
+        const formatId =  getAnimalsSnapshot.judeFormatId(id);
+        expect(formatId).toEqual(expectResult);
+    });
+
+    it('judeFormat', ()=> {
+        spyOn(console, 'log');
+        const date = '2016/09-02 22:30:46';
+        const expectResult = 'Invalid format.';
+        getAnimalsSnapshot.judeFormatDate(date);
+        expect(console.log).toHaveBeenCalledWith(expectResult);
+    });
+
+    it('judeFormat', ()=> {
+        const date = '2016/09/02 22:30:46';
+        const expectResult = true;
+        const formatDate =  getAnimalsSnapshot.judeFormatDate(date);
+        expect(formatDate).toEqual(expectResult);
+    });
+
+
 });

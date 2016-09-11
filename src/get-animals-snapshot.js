@@ -26,9 +26,18 @@ let getAnimalsArr = (elementSplited)=> {
     });
 };
 
-exports.judeFormatId = (id) =>{
-  const idSplited = id.split(' ');
-    if(id && idSplited[1]){
+exports.judeFormatId = (id) => {
+    const idSplited = id.split(' ');
+    if (idSplited[1] || id === '') {
+        console.log('Invalid format.');
+        return false;
+    }
+    return true;
+};
+
+exports.judeFormatDate = (date) => {
+    var reg = /^(\d{4})(-|\/)(\d{2})\2(\d{2}) (\d{2}):(\d{2}):(\d{2})$/;
+    if (!reg.test(date)) {
         console.log('Invalid format.');
         return false;
     }
